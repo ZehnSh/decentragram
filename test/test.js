@@ -35,9 +35,9 @@ contract('Decentragram', ([deployer, author, tipper]) => {
       imageCount = await decentragram.imageCount()
     })
 
-    //check event
+    
     it('creates images', async () => {
-      // SUCESS
+    
       assert.equal(imageCount, 1)
       const event = result.logs[0].args
       assert.equal(event.id.toNumber(), imageCount.toNumber(), 'id is correct')
@@ -54,7 +54,6 @@ contract('Decentragram', ([deployer, author, tipper]) => {
       await decentragram.uploadImage('Image hash', '', { from: author }).should.be.rejected;
     })
 
-    //check from Struct
     it('lists images', async () => {
       const image = await decentragram.images(imageCount)
       assert.equal(image.id.toNumber(), imageCount.toNumber(), 'id is correct')
@@ -72,7 +71,6 @@ contract('Decentragram', ([deployer, author, tipper]) => {
 
       result = await decentragram.tipImageOwner(imageCount, { from: tipper, value: web3.utils.toWei('1', 'Ether') })
 
-      // SUCCESS
       const event = result.logs[0].args
       assert.equal(event.id.toNumber(), imageCount.toNumber(), 'id is correct')
       assert.equal(event.hash, hash, 'Hash is correct')
